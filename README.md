@@ -9,6 +9,10 @@
 
 https://opensearch.org/downloads.html
 
+* 1 node で動作する設定
+* セキュリティ設定を削除
+  * https://opensearch.org/docs/security-plugin/configuration/disable/
+
 ### converter
 
 * python
@@ -17,11 +21,12 @@ https://opensearch.org/downloads.html
   * opensearch-py
     * https://github.com/opensearch-project/opensearch-py
 
-### 準備
+
+## 準備
 
 ```bash
 $ docker-compose up -d
-$ curl -XGET https://localhost:9200 -u admin:admin --insecure
+$ curl -XGET http://localhost:9200
 
 $ git clone "https://github.com/opensearch-project/opensearch-py.git"
 $ poetry shell
