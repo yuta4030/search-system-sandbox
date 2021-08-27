@@ -27,9 +27,4 @@ https://opensearch.org/downloads.html
 ```bash
 $ docker-compose up -d
 $ curl -XGET http://localhost:9200
-
-$ git clone "https://github.com/opensearch-project/opensearch-py.git"
-$ poetry shell
-$ cd opensearch-py
-$ pip install .
 ```
