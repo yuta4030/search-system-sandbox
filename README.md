@@ -21,6 +21,12 @@ https://opensearch.org/downloads.html
   * opensearch-py
     * https://github.com/opensearch-project/opensearch-py
 
+### search system
+
+* Next.js
+  * yarn
+  * TypeScript
+
 
 ## データの投入まで
 
@@ -58,4 +64,16 @@ $ wc -l converter/data/koukyoushisetsu.csv
 
 $ curl "http://localhost:9200/public_facility/_count"
 {"count":452,"_shards":{"total":1,"successful":1,"skipped":0,"failed":0}}
+```
+
+
+## search-system の準備
+
+```bash
+$ yarn create next-app --typescript
+$ cd search-system
+$ yarn dev
+$ open http://localhost:3000
+$ yarn add @material-ui/core
+$ yarn add @material-ui/icons
 ```
