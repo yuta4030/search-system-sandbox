@@ -10,20 +10,17 @@
 https://opensearch.org/downloads.html
 
 * 1 node で動作する設定
-* セキュリティ設定を削除
-  * https://opensearch.org/docs/security-plugin/configuration/disable/
+* [セキュリティ設定を削除](https://opensearch.org/docs/security-plugin/configuration/disable/)
 
 ### converter
 
 * python
-  * poetry
-    * https://python-poetry.org/
-  * opensearch-py
-    * https://github.com/opensearch-project/opensearch-py
+  * [poetry](https://python-poetry.org/)
+  * [opensearch-py](https://github.com/opensearch-project/opensearch-py)
 
 ### search system
 
-* Next.js
+* [Next.js](https://nextjs.org/)
   * yarn
   * TypeScript
 
