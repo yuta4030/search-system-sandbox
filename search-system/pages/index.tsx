@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import {Container} from "@material-ui/core"
 
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
@@ -15,8 +16,10 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <SearchForm />
-        <SearchResult />
+        <Container fixed={true}>
+          <SearchForm />
+          <SearchResult />
+        </Container>
       </main>
     </div>
   );
