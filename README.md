@@ -23,6 +23,9 @@ https://opensearch.org/downloads.html
 * [Next.js](https://nextjs.org/)
   * yarn
   * TypeScript
+  * [material-ui](https://material-ui.com/)
+  * [Formik](https://formik.org/)
+    * [with-material-ui](https://codesandbox.io/s/github/formik/formik/tree/master/examples/with-material-ui?from-embed=&file=/index.js)
 
 
 ## データの投入まで
