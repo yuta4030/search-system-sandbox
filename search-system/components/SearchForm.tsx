@@ -1,15 +1,24 @@
-import { TextField, Button, Grid } from "@material-ui/core";
+import { useState } from "react";
+
+import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 
+import SearchResult from "../components/SearchResult";
+
 export default function SearchForm() {
+  const initText = "init";
+  const [text, setText] = useState(initText);
+
   const formik = useFormik({
     initialValues: {
-      word: "init",
+      word: initText,
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null));
+      setText(values.word);
     },
   });
+
   return (
     <div style={{ margin: 8 }}>
       <form onSubmit={formik.handleSubmit}>
@@ -27,8 +36,12 @@ export default function SearchForm() {
               Submit
             </Button>
           </Grid>
+          <Grid item>
+            <Typography>{text}</Typography>
+          </Grid>
         </Grid>
       </form>
+      <SearchResult text={text} />
     </div>
   );
 }

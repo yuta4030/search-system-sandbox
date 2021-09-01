@@ -4,7 +4,6 @@ import {Container} from "@material-ui/core"
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import SearchForm from "../components/SearchForm";
-import SearchResult from "../components/SearchResult";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +17,6 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <Container fixed={true}>
           <SearchForm />
-          <SearchResult />
         </Container>
       </main>
     </div>
