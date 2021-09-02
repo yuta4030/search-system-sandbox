@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 
 import SearchResult from "../components/SearchResult";
 
-export default function SearchForm() {
-  const initText = "init";
+export default function SearchForm(props: Props) {
+  const initText = props.text;
   const [text, setText] = useState(initText);
 
   const formik = useFormik({
@@ -18,6 +19,12 @@ export default function SearchForm() {
       setText(values.word);
     },
   });
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/hello").then((res) => {
+      setText(res.data.name);
+    });
+  }, []);
 
   return (
     <div style={{ margin: 8 }}>
