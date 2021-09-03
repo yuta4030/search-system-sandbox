@@ -52,6 +52,7 @@ class PublicFacilityIndex():
 
     @dataclass(frozen=True)
     class PublicFacilityDoc():
+        code: str
         name: str
         ruby: str
         address: str
@@ -67,6 +68,7 @@ class PublicFacilityIndex():
 
         def to_docs(self):
             return {
+                "code": self.code,
                 "name": self.name,
                 "ruby": self.ruby,
                 "address": self.address,
@@ -80,7 +82,7 @@ class PublicFacilityIndex():
                 "geo": {
                     "lat": self.lat,
                     "lon": self.lon,
-                }
+                },
             }
 
 
@@ -100,9 +102,12 @@ def create_index(os: OpenSearch, index: str, mapping: dict):
 
 def csv_to_docs(filepath: str):
     with open(filepath) as f:
+        counter = 0
         reader = csv.DictReader(f)
         for row in reader:
+            counter += 1
             yield PublicFacilityIndex.PublicFacilityDoc(
+                code=str(counter).zfill(8),
                 name=row["名称"],
                 ruby=row["ふりがな"],
                 address=row["所在地"],
