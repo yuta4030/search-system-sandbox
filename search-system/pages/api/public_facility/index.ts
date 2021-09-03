@@ -56,7 +56,6 @@ function generateQuery(from?: number, size?: number): object {
   return query;
 }
 
-
 async function searchWord(from: number, size: number) {
   const query = generateQuery(from, size);
   const res = await axios.post(path, query).then((res) => res.data);
@@ -96,6 +95,22 @@ async function searchWord(from: number, size: number) {
       categories: categories,
       geo: geo,
     };
+
+    if (data._source.ruby) {
+      public_facility.ruby = data._source.ruby;
+    }
+    if (data._source.phone_number) {
+      public_facility.phone_number = data._source.phone_number;
+    }
+    if (data._source.fax_number) {
+      public_facility.fax_number = data._source.fax_number;
+    }
+    if (data._source.url) {
+      public_facility.url = data._source.url;
+    }
+    if (data._source.remarks) {
+      public_facility.remarks = data._source.remarks;
+    }
 
     items.push(public_facility);
   }
