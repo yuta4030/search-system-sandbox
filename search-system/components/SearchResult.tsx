@@ -1,7 +1,11 @@
 import { Typography } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 
-export default function SearchResult(props) {
+type Props = {
+  text: string;
+};
+
+function SearchResult(props: Props) {
   const columns = [
     { field: "id", width: 90 },
     { field: "test1", width: 120 },
@@ -15,11 +19,11 @@ export default function SearchResult(props) {
   ];
 
   return (
-    <div style={{ height: 600, width: 600, margin: 8}}>
+    <div style={{ height: 600, width: 600, margin: 8 }}>
       <DataGrid rows={rows} columns={columns} />
-      <Typography>
-        {props.text}
-      </Typography>
+      <Typography>{props.text}</Typography>
     </div>
   );
 }
+
+export default SearchResult;

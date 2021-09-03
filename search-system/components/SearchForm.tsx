@@ -6,8 +6,8 @@ import { useFormik } from "formik";
 
 import SearchResult from "../components/SearchResult";
 
-export default function SearchForm(props: Props) {
-  const initText = props.text;
+function SearchForm() {
+  const initText = ""
   const [text, setText] = useState(initText);
 
   const formik = useFormik({
@@ -52,3 +52,5 @@ export default function SearchForm(props: Props) {
     </div>
   );
 }
+
+export default SearchForm;
