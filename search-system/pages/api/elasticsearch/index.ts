@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
-function request() {
-  return axios.get("http://localhost:9200/")
-    .then((res) => res.data);
+async function request() {
+  const res = await axios.get("http://localhost:9200/");
+  return res.data;
 }
 
 async function handler(
