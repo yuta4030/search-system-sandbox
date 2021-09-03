@@ -18,6 +18,7 @@ interface Geo {
 }
 
 interface PublicFacility {
+  code: string;
   name: string;
   ruby?: string;
   address: string;
@@ -90,6 +91,7 @@ async function searchWord(from: number, size: number) {
     };
 
     const public_facility: PublicFacility = {
+      code: data._source.code,
       name: data._source.name,
       address: data._source.address,
       categories: categories,

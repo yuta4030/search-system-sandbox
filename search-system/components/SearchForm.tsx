@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
@@ -19,12 +18,6 @@ function SearchForm() {
       setText(values.word);
     },
   });
-
-  useEffect(() => {
-    axios.get("http://localhost:3000/api/elasticsearch").then((res) => {
-      setText(res.data.name);
-    });
-  }, []);
 
   return (
     <div style={{ margin: 8 }}>
