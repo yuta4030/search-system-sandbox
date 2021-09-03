@@ -21,7 +21,7 @@ export default function SearchForm(props: Props) {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/hello").then((res) => {
+    axios.get("http://localhost:3000/api/elasticsearch").then((res) => {
       setText(res.data.name);
     });
   }, []);
