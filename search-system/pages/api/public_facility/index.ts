@@ -42,21 +42,30 @@ interface Results {
 }
 
 const path = "http://localhost:9200/public_facility/_search";
+const default_from: number = 0;
+const default_size: number = 10;
 
-const query = {
-  query: {
-    match_all: {},
-  },
-};
+function generateQuery(from?: number, size?: number): object {
+  const query = {
+    query: {
+      match_all: {},
+    },
+    from: from,
+    size: size,
+  };
+  return query;
+}
 
-async function searchWord() {
+
+async function searchWord(from: number, size: number) {
+  const query = generateQuery(from, size);
   const res = await axios.post(path, query).then((res) => res.data);
 
   const count: Count = {
     total: res.hits.total.value,
     is_accurate: res.hits.total.relation == "eq",
-    from: 0,
-    size: 10,
+    from: from,
+    size: size,
   };
   const items: Array<PublicFacility> = new Array();
 
@@ -100,7 +109,10 @@ async function searchWord() {
 }
 
 async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
-  res.status(200).json(await searchWord());
+  const from = req.query.from ? Number(req.query.from) : default_from;
+  const size = req.query.size ? Number(req.query.size) : default_size;
+  const results = await searchWord(from, size);
+  res.status(200).json(results);
 }
 
 export default handler;
