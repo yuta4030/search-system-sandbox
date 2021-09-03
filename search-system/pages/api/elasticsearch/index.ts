@@ -6,12 +6,9 @@ async function request() {
   return res.data;
 }
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any>
-) {
-  const result = await request()
+async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+  const result = await request();
   res.status(200).json(result);
 }
 
-export default handler
+export default handler;

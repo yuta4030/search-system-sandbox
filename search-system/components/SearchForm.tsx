@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import SearchResult from "../components/SearchResult";
 
 function SearchForm() {
-  const initText = ""
+  const initText = "";
   const [text, setText] = useState(initText);
 
   const formik = useFormik({
