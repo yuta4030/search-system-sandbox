@@ -107,7 +107,7 @@ def csv_to_docs(filepath: str):
                 ruby=row["ふりがな"],
                 address=row["所在地"],
                 phone_number=row["電話番号"],
-                fax_number=["FAX"],
+                fax_number=row["FAX"],
                 url=row["URL"],
                 remarks=row["備考"],
                 category_1=row["大分類__"],
