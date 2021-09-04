@@ -44,22 +44,34 @@ interface Results {
 
 const path = "http://localhost:9200/public_facility/_search";
 const default_from: number = 0;
-const default_size: number = 10;
+const default_size: number = 5;
 
-function generateQuery(from?: number, size?: number): object {
-  const query = {
-    query: {
+function generateDSL(from: number, size: number, q: string): object {
+  let query = {};
+  if (q) {
+    query = {
+      multi_match: {
+        query: q,
+        fields: ["name"],
+      },
+    };
+  } else {
+    query = {
       match_all: {},
-    },
+    };
+  }
+
+  const dsl = {
+    query: query,
     from: from,
     size: size,
   };
-  return query;
+  return dsl;
 }
 
-async function searchWord(from: number, size: number) {
-  const query = generateQuery(from, size);
-  const res = await axios.post(path, query).then((res) => res.data);
+async function searchWord(from: number, size: number, q: string) {
+  const dsl = generateDSL(from, size, q);
+  const res = await axios.post(path, dsl).then((res) => res.data);
 
   const count: Count = {
     total: res.hits.total.value,
@@ -125,10 +137,16 @@ async function searchWord(from: number, size: number) {
   return results;
 }
 
-async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+async function handler(req: NextApiRequest, res: NextApiResponse<Results>) {
   const from = req.query.from ? Number(req.query.from) : default_from;
   const size = req.query.size ? Number(req.query.size) : default_size;
-  const results = await searchWord(from, size);
+  let q = req.query.q ? req.query.q : "";
+
+  if (typeof(q) != "string"){
+    q = q[0]
+  }
+
+  const results = await searchWord(from, size, q);
   res.status(200).json(results);
 }
 
