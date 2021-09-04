@@ -142,8 +142,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<Results>) {
   const size = req.query.size ? Number(req.query.size) : default_size;
   let q = req.query.q ? req.query.q : "";
 
-  if (typeof(q) != "string"){
-    q = q[0]
+  if (typeof q != "string") {
+    q = q[0];
   }
 
   const results = await searchWord(from, size, q);

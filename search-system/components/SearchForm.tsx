@@ -1,23 +1,77 @@
-import { useState } from "react";
-
-import { TextField, Button, Grid, Typography } from "@material-ui/core";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
+import axios from "axios";
 
-import SearchResult from "../components/SearchResult";
+import { TextField, Button, Grid } from "@material-ui/core";
+
+import PublicFacilityCard from "./PublicFacilityCard";
+
+interface ResultItem {
+  code: string;
+  name: string;
+  address: string;
+  geo: string;
+}
 
 function SearchForm() {
-  const initText = "";
-  const [text, setText] = useState(initText);
+  const initRows: Array<ResultItem> = [];
+  const [rows, setRows] = useState<Array<ResultItem>>(initRows);
 
   const formik = useFormik({
     initialValues: {
-      word: initText,
+      word: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null));
-      setText(values.word);
+      requestPublicFaclity(5, 0, values.word);
     },
   });
+
+  async function requestPublicFaclity(
+    size: number,
+    start: number,
+    word: string
+  ) {
+    const params = {
+      size: size,
+      start: start,
+      q: word,
+    };
+
+    await axios
+      .get("http://localhost:3000/api/public_facility", {
+        params: params,
+      })
+      .then((res) => {
+        const items: Array<ResultItem> = [];
+        for (const item of res.data.items) {
+          const routeItem: ResultItem = {
+            code: item.code,
+            name: item.name,
+            address: item.address,
+            geo: item.geo.lon + "," + item.geo.lat,
+          };
+          items.push(routeItem);
+        }
+        setRows([...items]);
+      });
+  }
+
+  useEffect(() => {
+    requestPublicFaclity(5, 0, "");
+  }, []);
+
+  const publicFacilityCards = [];
+  for (const [index, row] of rows.entries()) {
+    publicFacilityCards.push(
+      <PublicFacilityCard
+        key={index}
+        code={row.code}
+        name={row.name}
+        address={row.address}
+        geo={row.geo}
+      />
+    );
+  }
 
   return (
     <div style={{ margin: 8 }}>
@@ -33,15 +87,12 @@ function SearchForm() {
           </Grid>
           <Grid item>
             <Button variant="contained" type="submit" color="primary">
-              Submit
+              検索
             </Button>
-          </Grid>
-          <Grid item>
-            <Typography>{text}</Typography>
           </Grid>
         </Grid>
       </form>
-      <SearchResult text={text} />
+      <div>{publicFacilityCards}</div>
     </div>
   );
 }
