@@ -46,27 +46,26 @@ const path = "http://localhost:9200/public_facility/_search";
 const default_from: number = 0;
 const default_size: number = 5;
 
-function generateDSL(from: number, size: number, q: string): object {
-  let query = {};
+function switchQuery(q: string): object {
   if (q) {
-    query = {
+    return {
       multi_match: {
         query: q,
         fields: ["name"],
       },
     };
-  } else {
-    query = {
-      match_all: {},
-    };
   }
+  return {
+    match_all: {},
+  };
+}
 
-  const dsl = {
-    query: query,
+function generateDSL(from: number, size: number, q: string): object {
+  return {
+    query: switchQuery(q),
     from: from,
     size: size,
   };
-  return dsl;
 }
 
 async function searchWord(from: number, size: number, q: string) {
